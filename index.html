@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untuk Kamu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --pink-50: #fff7fb;
+        --pink-100: #fceaf3;
+        --pink-200: #f8dce9;
+        --pink-300: #f3bfd9;
+        --pink-400: #ee9dc3;
+        --pink-500: #e584b1;
+        --rose: #c43e7b;
+        --text: #2f1d2c;
+        --muted: #5a3b4e;
+        --white: #ffffff;
+        --line: rgba(176, 99, 135, 0.2);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        color: var(--text);
+        background: linear-gradient(180deg, #fff7fb 0%, #fde3ef 22%, #f8d2e6 48%, #f2bfd7 100%);
+        overflow-x: hidden;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      h1, h2, h3 { font-family: "Cormorant Garamond", serif; }
+
+      .container {
+        width: min(1160px, calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+      }
+
+      .opening {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.7), rgba(245,188,213,0.9) 45%, rgba(207,91,147,0.96));
+        z-index: 50;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+      }
+
+      .opening.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .opening-box {
+        width: min(680px, calc(100% - 32px));
+        padding: 48px 30px 34px;
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.75);
+        background: rgba(255,255,255,0.16);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 28px 80px rgba(138,51,86,0.18);
+        text-align: center;
+      }
+
+      .opening-kicker {
+        margin: 0 0 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: rgba(80,33,56,0.84);
+      }
+
+      .opening-box h1 {
+        margin: 0;
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 0.9;
+        letter-spacing: -0.08em;
+        color: var(--white);
+      }
+
+      .opening-box p {
+        margin: 18px auto 0;
+        max-width: 500px;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: rgba(55,26,41,0.82);
+      }
+
+      .open-btn {
+        margin-top: 26px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #fff, #ffdfe8);
+        color: var(--rose);
+        padding: 16px 30px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        box-shadow: 0 18px 36px rgba(152,51,101,0.18);
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 70px 0 60px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1.2fr;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 18px;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--rose);
+      }
+
+      .hero-copy h1 {
+        margin: 0 0 18px;
+        font-size: clamp(3rem, 5vw, 5.3rem);
+        line-height: 0.9;
+        letter-spacing: -0.08em;
+        color: var(--text);
+      }
+
+      .hero-copy h1 .soft { color: var(--white); }
+
+      .hero-copy p {
+        max-width: 620px;
+        margin: 0;
+        font-size: 1.04rem;
+        line-height: 1.9;
+        color: var(--muted);
+      }
+
+      .burst {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.9);
+        box-shadow: 0 0 18px rgba(255,255,255,0.8), 0 0 30px rgba(232,121,170,0.8);
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(0.2);
+        animation: burst-pop 0.9s ease-out forwards;
+        z-index: 60;
+      }
+
+      @keyframes burst-pop {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(0.2);
+        }
+        30% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--x), var(--y)) scale(1.8);
+        }
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0 22px;
+        border-radius: 999px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #eb7db6, #d64e8c);
+        color: var(--white);
+        box-shadow: 0 18px 36px rgba(190,76,125,0.18);
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.38);
+        border: 1px solid rgba(187,104,141,0.15);
+        color: var(--text);
+      }
+
+      .story-hero {
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+        gap: 18px;
+        align-items: center;
+        padding: 18px;
+        border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.72);
+        background: rgba(255,255,255,0.18);
+        box-shadow: 0 26px 70px rgba(152, 56, 99, 0.08);
+      }
+
+      .story-image {
+        min-height: 430px;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.78);
+        background: #f9dce9;
+      }
+
+      .story-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .story-copy {
+        padding: 10px 12px 10px 6px;
+      }
+
+      .story-copy .tag {
+        display: inline-block;
+        margin-bottom: 12px;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--rose);
+        font-weight: 800;
+      }
+
+      .story-copy h3 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 3vw, 3.2rem);
+        line-height: 0.94;
+        letter-spacing: -0.05em;
+        color: var(--text);
+      }
+
+      .story-copy p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.9;
+        color: var(--muted);
+      }
+
+      .section {
+        padding: 92px 0;
+      }
+
+      .section-head {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+
+      .section-tag {
+        display: inline-block;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--rose);
+      }
+
+      h2 {
+        margin: 16px 0 0;
+        font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+        line-height: 1.14;
+        letter-spacing: -0.05em;
+        color: var(--text);
+      }
+
+      .story-list {
+        display: grid;
+        gap: 28px;
+      }
+
+      .story-item {
+        display: grid;
+        grid-template-columns: minmax(300px, 1.15fr) minmax(260px, 0.85fr);
+        align-items: center;
+        gap: 24px;
+        padding: 18px;
+        border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.7);
+        background: rgba(255,255,255,0.18);
+        box-shadow: 0 26px 70px rgba(152,56,99,0.08);
+      }
+
+      .story-item:nth-child(even) .story-image { order: 2; }
+      .story-item:nth-child(even) .story-copy { order: 1; }
+
+      .story-item h3 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 3vw, 3.1rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
+        color: var(--text);
+      }
+
+      .story-item p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.9;
+        color: var(--muted);
+      }
+
+      .closing-box {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+        background: rgba(255,255,255,0.22);
+        border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.7);
+        padding: 28px 20px;
+      }
+
+      .closing-box p {
+        margin: 0;
+        font-size: clamp(1.4rem, 3vw, 2.2rem);
+        line-height: 1.5;
+        letter-spacing: -0.04em;
+        color: var(--text);
+      }
+
+      footer {
+        padding: 18px 0 60px;
+        text-align: center;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .story-hero,
+        .story-item {
+          grid-template-columns: 1fr;
+        }
+
+        .story-item:nth-child(even) .story-image,
+        .story-item:nth-child(even) .story-copy {
+          order: initial;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .cta-row { flex-direction: column; }
+        .btn { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="opening" id="opening">
+      <div class="opening-box">
+        <p class="opening-kicker">Halaman khusus</p>
+        <h1>Untuk Kamu</h1>
+        <p>
+          Sebuah halaman kecil yang aku buat untuk menuliskan hal yang sulit aku katakan dengan jelas.
+          Kalau kamu siap, masuklah dulu. Aku punya sesuatu yang ingin aku sampaikan.
+        </p>
+        <button class="open-btn" type="button" id="enterBtn">Masuk</button>
+      </div>
+    </div>
+
+    <div class="page">
+      <header class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Untuk Kamu</span>
+            <h1>
+              Hal hal <span class="soft">kecil</span><br />
+              yang bikin aku<br />
+              sadar.
+            </h1>
+            <p>
+              Ada momen yang terasa biasa, tapi setelah kamu hadir, semuanya mulai terasa lebih hangat.
+              Aku tidak ingin banyak bicara. Aku hanya ingin kamu tahu, keberadaan kamu membuat hari-hariku lebih tenang, lebih indah, dan lebih berarti.
+            </p>
+
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#story">Baca kisahku</a>
+              <a class="btn btn-secondary" href="#closing">Lanjutkan</a>
+            </div>
+          </div>
+
+          <div class="story-hero" style="grid-template-columns: 1fr;">
+            <div class="story-copy" style="padding: 10px 14px;">
+              <span class="tag">Tentang kamu</span>
+              <h3>Kalau aku bilang kamu berarti, itu bukan sekadar kata.</h3>
+              <p>
+                Kamu hadir dengan cara yang sederhana, tapi dampaknya besar. Kamu membuat hari-hariku lebih tenang dan membuat aku sadar bahwa kebahagiaan itu sering datang dari orang-orang yang memberi rasa aman.
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section id="story" class="section">
+          <div class="container">
+            <div class="section-head">
+              <span class="section-tag">Kenangan</span>
+              <h2>Hal-hal kecil yang aku nggak mau lupa</h2>
+            </div>
+
+            <div class="story-list">
+              <article class="story-item">
+                <div class="story-image">
+                  <img src="assets/photos/2026-04-14_16.20.34.png" alt="Momen pertama" />
+                </div>
+                <div class="story-copy">
+                  <span class="tag">Momen pertama</span>
+                  <h3>Awal yang terasa beda.</h3>
+                  <p>Aku baru sadar, ada sesuatu yang mulai tumbuh tanpa aku sengaja. Kamu hadir dengan cara yang tenang, tapi cukup kuat untuk membuat hari-hari biasa terasa lebih hangat dan lebih bermakna.</p>
+                </div>
+              </article>
+
+              <article class="story-item">
+                <div class="story-image">
+                  <img src="assets/photos/2026-05-14_17.44.10.png" alt="Hari yang hangat" />
+                </div>
+                <div class="story-copy">
+                  <span class="tag">Hari yang hangat</span>
+                  <h3>Setiap detik kecil terasa lebih damai.</h3>
+                  <p>Sekarang, aku lebih mudah merasa tenang. Ada ketenangan yang datang saat aku mengingat kamu, seperti ada ruang kecil yang lebih nyaman di dalam hidupku.</p>
+                </div>
+              </article>
+
+              <article class="story-item">
+                <div class="story-image">
+                  <img src="assets/photos/2026-05-26_17.29.37.png" alt="Kebiasaan kecil" />
+                </div>
+                <div class="story-copy">
+                  <span class="tag">Kebiasaan kecil</span>
+                  <h3>Hal kecil itu yang paling aku ingat.</h3>
+                  <p>Bukan hal besar yang paling aku ingat, tapi kebiasaan kecil dari kamu. Cara kamu hadir, cara kamu membuat aku merasa aman, itu semua sangat berarti.</p>
+                </div>
+              </article>
+
+              <article class="story-item">
+                <div class="story-image">
+                  <img src="assets/photos/2026-05-27_11.19.02.png" alt="Kesan yang tumbuh" />
+                </div>
+                <div class="story-copy">
+                  <span class="tag">Kesan yang tumbuh</span>
+                  <h3>Perasaanku makin jelas.</h3>
+                  <p>Semakin lama aku mengenalmu, semakin aku sadar bahwa perasaan ini bukan sekadar biasa. Kamu sudah jadi salah satu orang yang ingin aku jaga dengan hati yang tulus.</p>
+                </div>
+              </article>
+
+              <article class="story-item">
+                <div class="story-image">
+                  <img src="assets/photos/2026-06-18_23.55.07.png" alt="Momen harian" />
+                </div>
+                <div class="story-copy">
+                  <span class="tag">Momen harian</span>
+                  <h3>Kamu buat hari-hariku lebih tenang.</h3>
+                  <p>Aku suka bagaimana kamu membuat momen sederhana terasa lebih indah. Tidak perlu berlebihan, cukup hadir dengan kehangatan yang membuat hati terasa lebih tenang.</p>
+                </div>
+              </article>
+
+              <article class="story-item">
+                <div class="story-image">
+                  <img src="assets/photos/2026-06-19_00.02.42.png" alt="Yang ingin aku simpan" />
+                </div>
+                <div class="story-copy">
+                  <span class="tag">Yang ingin aku simpan</span>
+                  <h3>Dan aku ingin kamu tahu, kamu sudah masuk ke hidupku.</h3>
+                  <p>Aku tidak ingin cuma menyimpan semua ini diam-diam. Aku ingin kamu tahu, kamu sudah masuk ke dalam hidupku dengan cara yang sangat nyata dan sangat berarti.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="closing" class="section">
+          <div class="container">
+            <div class="closing-box">
+              <p>Terima kasih sudah hadir dengan cara yang membuat aku merasa lebih tenang, lebih hangat, dan lebih menghargai hidup.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>Made with a quiet kind of love.</footer>
+    </div>
+
+    <script>
+      const opening = document.getElementById('opening');
+      const enterBtn = document.getElementById('enterBtn');
+
+      function createBurst(x, y) {
+        const burst = document.createElement('span');
+        burst.className = 'burst';
+        burst.style.left = x + 'px';
+        burst.style.top = y + 'px';
+        burst.style.setProperty('--x', `${(Math.random() - 0.5) * 180}px`);
+        burst.style.setProperty('--y', `${(Math.random() - 0.5) * 180}px`);
+        burst.style.background = ['#fff3f8', '#ffd6e8', '#ffc7d9'][Math.floor(Math.random() * 3)];
+        document.body.appendChild(burst);
+        setTimeout(() => burst.remove(), 900);
+      }
+
+      enterBtn.addEventListener('click', (event) => {
+        opening.classList.add('hidden');
+
+        for (let i = 0; i < 20; i++) {
+          setTimeout(() => {
+            createBurst(
+              event.clientX + (Math.random() - 0.5) * 80,
+              event.clientY + (Math.random() - 0.5) * 80
+            );
+          }, i * 30);
+        }
+      });
+    </script>
+  </body>
+</html>
